@@ -1,3 +1,4 @@
+#!/bin/sh
 # Title:
 #    load_training_data.sh
 #
@@ -14,6 +15,7 @@
 
 DATA_DIR="../data"
 TRAINING_DATA_DIR="${DATA_DIR}/training_data"
+BATCH_DATA_DIR="${DATA_DIR}/batch_files"
 SCRIPT_DIR="scripts"
 
 
@@ -39,5 +41,26 @@ else
 fi
 
 
+# test if batch files have been generated
+if [ -d "${BATCH_DATA_DIR}" ]; then
+	# test if the user wants to overwrite the batch files folder
+	echo "The batch files seem to have already been generated. Would you like to overwrite this data and remake the batch files? Type y/n"
+	read input
+	if [ "${input}" = "y" ]; then
+	        echo "Generating batch files..."
+        	for f in ${TRAINING_DATA_DIR}/*
+        	do
+			python "${SCRIPT_DIR}/parse_data.py" $(basename "${f}") 60
+        	done
+	else
+		echo "Continuing with data in the folder..."
+	fi
+else
+	mkdir "${BATCH_DATA_DIR}"
+	echo "Generating batch files..."
+	for f in ${TRAINING_DATA_DIR}/*
+	do
+		python "${SCRIPT_DIR}/parse_data.py" $(basename "${f}") 60
+	done
 
-
+fi

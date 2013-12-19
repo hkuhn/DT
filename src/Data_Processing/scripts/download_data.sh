@@ -12,7 +12,7 @@ TRAINING_DATA_DIR="${DATA_DIR}/training_data"
 
 
 # ticker array
-TICKER=( .INX WMT KMB PGN JNJ SCG KO ED HNZ KFT WM SYY CPB GIS ABT CL CAG PEP ADP UPS DTE PNW VZ MMM K WAG ITW HSY PAYX CLX NOC MSFT MDT BMS GAS GPC BRK PG FII CMCSA CAH ) 
+TICKER=( WMT KMB JNJ SCG KO ED  WM SYY CPB GIS ABT CL CAG PEP ADP UPS DTE PNW VZ MMM K WAG ITW HSY PAYX CLX NOC MSFT MDT BMS GAS GPC PG FII CMCSA CAH JPM HAL SLB IBM) 
 
 # params
 PERIOD=60
@@ -24,7 +24,8 @@ for (( i = 0; i < ${#TICKER[@]}; i++ )) do
 	curl "http://www.google.com/finance/getprices?i=${PERIOD}&p=${DAYS}d&f=d,o,h,l,c,v&df=cpct&q=${TICKER[i]}" > "${TRAINING_DATA_DIR}/${TICKER[i]}.dat"
 done
 
-
+# download S&P500
+curl "http://www.google.com/finance/getprices?i=${PERIOD}&p=${DAYS}d&f=d,o,h,l,c,v&df=cpct&q=.IDX" > "${TRAINING_DATA_DIR}/IDX.dat"
 
 
 
