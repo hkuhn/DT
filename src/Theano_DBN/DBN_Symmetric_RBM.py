@@ -321,7 +321,7 @@ def test_DBN(finetune_lr=0.1, pretraining_epochs=100,
     #vocab_size = 29689
     
     #Number of hidden units in each layer
-    layer_architecture = [5000, 250, 10, 250, 5000, vocab_size]
+    layer_architecture = [360, 90, 5, 90, 360, vocab_size]
     layer_arch_filename = '../data/Layer Architecture'
     numpy.save(layer_arch_filename, layer_architecture)
     print "...saved layer architecture to ", layer_arch_filename, ".npy"
