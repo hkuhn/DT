@@ -89,11 +89,11 @@ for row in csv_input:
     #     LOW = 3
     #     OPEN = 4
     #     VOLUME = 5
-    close_list.append(row[1])
-    high_list.append(row[2])
-    low_list.append(row[3])
-    open_list.append(row[4])
-    volume_list.append(row[5])
+    close_list.append(float(row[1]))
+    high_list.append(float(row[2]))
+    low_list.append(float(row[3]))
+    open_list.append(float(row[4]))
+    volume_list.append(float(row[5]))
 
 
 
@@ -138,10 +138,10 @@ for row in csv_input:
     #     LOW = 3
     #     OPEN = 4
     #     VOLUME = 5
-    sp_close_list.append(row[1])
-    sp_high_list.append(row[2])
-    sp_low_list.append(row[3])
-    sp_open_list.append(row[4])
+    sp_close_list.append(float(row[1]))
+    sp_high_list.append(float(row[2]))
+    sp_low_list.append(float(row[3]))
+    sp_open_list.append(float(row[4]))
 
 
 
@@ -158,15 +158,16 @@ sp_open_list = [sp_open_list[i:i+interval] for i in range(0, len(sp_open_list), 
 # Open, High, Low, Close, Volume, S&P....]
 for i in range(0,num_examples):
     example_list = [open_list[i], high_list[i], low_list[i], close_list[i], volume_list[i], sp_open_list[i], sp_high_list[i], sp_low_list[i], sp_close_list[i]]
-    example_list = [item for sublist in example_list for item in sublist]
-    example_vector = numpy.array( example_list )
-    examples.append(example_vector)
+    example_list = [ item for sublist in example_list for item in sublist ]
+    examples.append(example_list)
 
 
 output_name = '../data/batch_files/' + os.path.splitext(filename)[0] + '_batch'
 print "Exporting pickle dump to" + output_name
-pickle.dump(examples, open(output_name, 'wb'))
 
+examples = [ item for sublist in examples for item in sublist ]
+
+pickle.dump(examples, open(output_name, 'wb'))
 
 
 

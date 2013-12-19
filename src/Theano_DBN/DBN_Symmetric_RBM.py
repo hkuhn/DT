@@ -278,7 +278,7 @@ class DBN(object):
 
 def test_DBN(finetune_lr=0.1, pretraining_epochs=100,
              pretrain_lr=0.01, k=1, training_epochs=1000,
-             dataset='../data/australia_batch_2-dirty', batch_size=10,
+             dataset='../data/batch_files/full_batch', batch_size=10,
 	     num_docs=100):
     """
     Demonstrates how to train and test a Deep Belief Network.
@@ -301,7 +301,7 @@ def test_DBN(finetune_lr=0.1, pretraining_epochs=100,
     :param batch_size: the size of a minibatch
     """
 
-    #datasets = load_data(dataset)
+    #vocab_size, datasets = load_data(dataset)
     vocab_size, datasets = load_data_australia(dataset, num_docs)
 
     train_set_x, train_set_y = datasets[0]

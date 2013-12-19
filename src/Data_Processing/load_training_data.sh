@@ -52,6 +52,8 @@ if [ -d "${BATCH_DATA_DIR}" ]; then
         	do
 			python "${SCRIPT_DIR}/parse_data.py" $(basename "${f}") 60
         	done
+		echo "Merging batch files..."
+		python "${SCRIPT_DIR}/combine_batch_data.py"
 	else
 		echo "Continuing with data in the folder..."
 	fi
@@ -62,5 +64,11 @@ else
 	do
 		python "${SCRIPT_DIR}/parse_data.py" $(basename "${f}") 60
 	done
+        echo "Merging batch files..."
+	python "${SCRIPT_DIR}/combine_batch_data.py"
 
 fi
+
+
+
+

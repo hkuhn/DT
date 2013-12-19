@@ -56,50 +56,10 @@ def to_full_feature_list(doc_name, ndocs):
 #and each column represents a feature
 #Returns an (ndocs x number of features) array, 
 def construct_dataset(doc_name, ndocs):
-	dwf, dt, fdf = to_full_feature_list(doc_name, ndocs)
-	all_words_dict = {}
-	word_ind_dict = {}
-	ind_counter = 0;
-	total_vocabulary = []
-	#Change this to fit the type of value you want to extract
-	#i.e. 'tf', 'df', or 'tf-idf'
-	freq_type = 'tf-idf'	
-
-	for docname in fdf:
-	    for word_ind in xrange(len(fdf[docname])):
-		for word_str in fdf[docname][word_ind]:
-		    if word_str in word_ind_dict:
-		        all_words_dict[word_str] = 0
-		    else:
-		        all_words_dict[word_str] = 0		    
-			word_ind_dict[word_str] = ind_counter
-			total_vocabulary.append(word_str)
-			ind_counter = ind_counter + 1
-			
-	
-
-	print "total # of words/features = ...", len(all_words_dict)
-	#print all_words_dict
-	
-	vocab_filename = '../data/vocabulary_list'
-	numpy.save(vocab_filename, total_vocabulary)
-	print "...saved vocabulary list to ", vocab_filename,".npy"
 		
 	#Create blank training set matrix, size=(ndocs x |D|)
-	data_set = [];	
-	for i in xrange(ndocs):
-	    data_set.append([])
-	    for j in xrange(len(all_words_dict)):
-	    	data_set[i].append(0)
+	data_set = pickle.load(open(doc_name, 'rb'))
 
-	doc_ind = 0;
-
-	for docname in fdf:
-	    for word_ind in xrange(len(fdf[docname])):
-		for word_str in fdf[docname][word_ind]:
-		   val = fdf[docname][word_ind][word_str][freq_type]
-		   data_set[doc_ind][word_ind_dict[word_str]] = val
-	    doc_ind = doc_ind + 1
 	return data_set
 	
 
@@ -133,9 +93,9 @@ def load_data_australia(doc_name, ndocs):
 	val_y_ = [0]*len(vs)
 	tes_y_ = [0]*len(tes)
 		
-	tr_y = theano.tensor.cast(make_shared_data(tr_y_), 'int32')
-	val_y = theano.tensor.cast(make_shared_data(val_y_), 'int32')
-	tes_y = theano.tensor.cast(make_shared_data(tes_y_), 'int32')
+	tr_y = theano.tensor.cast(make_shared_data(tr_y_), 'float32')
+	val_y = theano.tensor.cast(make_shared_data(val_y_), 'float32')
+	tes_y = theano.tensor.cast(make_shared_data(tes_y_), 'float32')
 
 	print 'Training set size: ', len(trs)
         print 'Validation set size: ', len(vs)
