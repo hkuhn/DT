@@ -74,7 +74,7 @@ for row in csv_input:
     counter = counter + 1
 
     # test end of file
-    if counter > (num_examples * interval):
+    if counter > ((num_examples * interval) + 8):
         break
 
     # test beginning of file    
@@ -123,7 +123,7 @@ for row in csv_input:
     counter = counter + 1
 
     # test end of file
-    if counter > (num_examples * interval):
+    if counter > ((num_examples * interval) + 8):
         break
 
     # test beginning of file    
@@ -161,12 +161,10 @@ for i in range(0,num_examples):
     example_list = [ item for sublist in example_list for item in sublist ]
     examples.append(example_list)
 
-
 output_name = '../data/batch_files/' + os.path.splitext(filename)[0] + '_batch'
 print "Exporting pickle dump to" + output_name
 
-examples = [ item for sublist in examples for item in sublist ]
-
+# EXPORTED AS LIST OF LISTS
 pickle.dump(examples, open(output_name, 'wb'))
 
 

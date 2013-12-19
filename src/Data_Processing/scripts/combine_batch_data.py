@@ -33,6 +33,7 @@ for i in range(0, len(file_list)):
     my_list.append(array)
 
 
+my_list = [ item for sublist in my_list for item in sublist ]
 pickle.dump(my_list, open('../data/batch_files/full_batch', 'wb')) 
 
 
