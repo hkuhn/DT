@@ -28,8 +28,11 @@ my_list = []
 
 for i in range(0, len(file_list)):
     filename = file_list[i]
+    if filename == 'full_batch':
+        continue
     path = batch_file_path + filename
     array = pickle.load(open(path, 'rb'))
+    print filename
     my_list.append(array)
 
 
