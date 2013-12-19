@@ -1,6 +1,7 @@
 import theano
 import numpy
 import random
+import pickle
 
 from clean_doc import *
 
