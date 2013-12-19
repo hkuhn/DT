@@ -327,7 +327,7 @@ def test_DBN(finetune_lr=0.1, pretraining_epochs=100,
     print "...saved layer architecture to ", layer_arch_filename, ".npy"
     dbn = DBN(numpy_rng=numpy_rng, n_ins=vocab_size,
               hidden_layers_sizes=layer_architecture,
-              n_outs=10)
+              n_outs=5)
 
     #########################
     # PRETRAINING THE MODEL #
