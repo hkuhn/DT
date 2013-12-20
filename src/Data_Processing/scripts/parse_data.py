@@ -34,7 +34,7 @@ except:
 filename = sys.argv[1]
 interval = int(sys.argv[2])
 file_path = '../data/training_data/' + filename
-SandP_path = '../data/training_data/IDX.dat'
+SandP_path = '../data/training_data/INX.dat'
 
 
 # create numpy feature vectors

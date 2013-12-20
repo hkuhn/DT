@@ -25,7 +25,7 @@ for (( i = 0; i < ${#TICKER[@]}; i++ )) do
 done
 
 # download S&P500
-curl "http://www.google.com/finance/getprices?i=${PERIOD}&p=${DAYS}d&f=d,o,h,l,c,v&df=cpct&q=.IDX" > "${TRAINING_DATA_DIR}/IDX.dat"
+curl "http://www.google.com/finance/getprices?i=${PERIOD}&p=${DAYS}d&f=d,o,h,l,c,v&df=cpct&q=.INX" > "${TRAINING_DATA_DIR}/INX.dat"
 
 
 
