@@ -45,7 +45,7 @@ print "Generating datapoints..."
 datapoints = []
 
 for i in range(0,len(dataset)):
-    cur_example = dataset[0]
+    cur_example = dataset[i]
     l1_output = numpy.dot(cur_example, A1)
     l2_output = numpy.dot(l1_output, A2)
     l3_output = numpy.dot(l2_output, A3)

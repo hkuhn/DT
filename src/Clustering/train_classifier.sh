@@ -14,6 +14,8 @@ A_MATRICES_PATH="../data/A_matrices"
 BATCH_FILES_PATH="../data/batch_files"
 DATAPOINTS_FILE="datapoints.npy"
 MEANS_FILE="means.npy"
+NUM_MEANS=3
+
 
 # Generate Datapoints
 if [ -f "${DATAPOINTS_FILE}" ]; then
@@ -28,7 +30,7 @@ if [ -f "${MEANS_FILE}" ]; then
     echo "Skipping mean points generation... file already exists"
 else
     echo "Generating means..."
-    python scripts/generate_means.py
+    python scripts/generate_means.py "${NUM_MEANS}"
 fi
 
 
