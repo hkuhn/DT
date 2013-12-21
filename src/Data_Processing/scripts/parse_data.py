@@ -8,7 +8,7 @@
 #
 # Example:
 #    python parse_data.py <filename> <minute-interval-timeframe>
-#    python parse_data.py WMT.dat 60
+#    python parse_data.py WMT.dat 15
 #
 
 import sys
@@ -58,7 +58,7 @@ sp_close_list = []
 csvfilestream = open(file_path, 'rb')
 csv_input = csv.reader(csvfilestream)
 
-num_examples = int(math.floor((sum(1 for row in csv_input) - 8) / interval))
+num_examples = int(math.floor((sum(1 for row in csv_input) - 8) / 60))
 print "Number of examples in this dataset: " + str(num_examples)
 
 
@@ -74,7 +74,7 @@ for row in csv_input:
     counter = counter + 1
 
     # test end of file
-    if counter > ((num_examples * interval) + 8):
+    if counter > ((num_examples * 60) + 8):
         break
 
     # test beginning of file    
@@ -99,11 +99,11 @@ for row in csv_input:
 
 
 # Slice list into sublists
-close_list = [close_list[i:i+interval] for i in range(0, len(close_list), interval)]
-high_list = [high_list[i:i+interval] for i in range(0, len(high_list), interval)]
-low_list = [low_list[i:i+interval] for i in range(0, len(low_list), interval)]
-open_list = [open_list[i:i+interval] for i in range(0, len(open_list), interval)]
-volume_list = [volume_list[i:i+interval] for i in range(0, len(volume_list), interval)]
+close_list = [close_list[i:i+60] for i in range(0, len(close_list), interval)]
+high_list = [high_list[i:i+60] for i in range(0, len(high_list), interval)]
+low_list = [low_list[i:i+60] for i in range(0, len(low_list), interval)]
+open_list = [open_list[i:i+60] for i in range(0, len(open_list), interval)]
+volume_list = [volume_list[i:i+60] for i in range(0, len(volume_list), interval)]
 
 #
 #
@@ -123,7 +123,7 @@ for row in csv_input:
     counter = counter + 1
 
     # test end of file
-    if counter > ((num_examples * interval) + 8):
+    if counter > ((num_examples * 60) + 8):
         break
 
     # test beginning of file    
@@ -147,16 +147,22 @@ for row in csv_input:
 
 
 # Slice list into sublists
-sp_close_list = [sp_close_list[i:i+interval] for i in range(0, len(sp_close_list), interval)]
-sp_high_list = [sp_high_list[i:i+interval] for i in range(0, len(sp_high_list), interval)]
-sp_low_list = [sp_low_list[i:i+interval] for i in range(0, len(sp_low_list), interval)]
-sp_open_list = [sp_open_list[i:i+interval] for i in range(0, len(sp_open_list), interval)]
+sp_close_list = [sp_close_list[i:i+60] for i in range(0, len(sp_close_list), interval)]
+sp_high_list = [sp_high_list[i:i+60] for i in range(0, len(sp_high_list), interval)]
+sp_low_list = [sp_low_list[i:i+60] for i in range(0, len(sp_low_list), interval)]
+sp_open_list = [sp_open_list[i:i+60] for i in range(0, len(sp_open_list), interval)]
 
 
 
 # ORDER OF NODES
 # Open, High, Low, Close, Volume, S&P....]
 for i in range(0,num_examples):
+    if len(open_list[i]) != 60 or len(sp_open_list[i]) != 60:
+        print "excluding: " + str(i)
+        print "length of open list: " + str(len(open_list[i]))
+        print "length of s&p list: " + str(len(sp_open_list[i]))
+        continue
+
     example_list = [open_list[i], high_list[i], low_list[i], close_list[i], volume_list[i], sp_open_list[i], sp_high_list[i], sp_low_list[i], sp_close_list[i]]
     example_list = [ item for sublist in example_list for item in sublist ]
     examples.append(example_list)
