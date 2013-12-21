@@ -6,7 +6,7 @@
 #    From deep belief network
 #
 # Example:
-#    sh train_classifier.sh
+#    sh train_classifier.sh <num_means>
 #
 
 
@@ -14,7 +14,7 @@ A_MATRICES_PATH="../data/A_matrices"
 BATCH_FILES_PATH="../data/batch_files"
 DATAPOINTS_FILE="datapoints.npy"
 MEANS_FILE="means.npy"
-NUM_MEANS=3
+NUM_MEANS="${1}"
 
 
 # Generate Datapoints
