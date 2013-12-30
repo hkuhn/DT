@@ -66,6 +66,7 @@ for i in range(0, len(output)):
     one_dist = numpy.linalg.norm(means[1] - example)
     two_dist = numpy.linalg.norm(means[2] - example)
     dist_array = numpy.asarray( [ zero_dist, one_dist, two_dist ] )
+    #dist_array = numpy.asarray( [ zero_dist, one_dist ] )
     min_index = numpy.argmin(dist_array)
     groupings.append(min_index)    
     print "at instance: " + str(i)

@@ -16,7 +16,7 @@ import numpy
 import random
 
 
-SAMPLES = 300
+SAMPLES = 500
 
 
 
@@ -59,29 +59,25 @@ for x in range(0,SAMPLES):
         print means
 
     #empty groups
-    group_zero = [] # mean at index 0
-    group_one = [] # mean at index 1
-    group_two = [] # mean at index 2
+    groups = []
+    for x in range(num_means):
+        groups.append([])
+
 
     # sort datapoints
     for y in range(0, len(datapoints)):
-        zero_dist = numpy.linalg.norm(means[0] - datapoints[y])
-        one_dist = numpy.linalg.norm(means[1] - datapoints[y])
-        two_dist = numpy.linalg.norm(means[2] - datapoints[y])
-        dist_array = numpy.asarray( [ zero_dist, one_dist, two_dist ] )
+        dist_array = []
+        for g in range(num_means):
+            dist = numpy.linalg.norm(means[g] - datapoints[y])
+            dist_array.append(dist)
+        dist_array = numpy.asarray( dist_array )
         min_index = numpy.argmin(dist_array)
-        if min_index == 0:
-            group_zero.append(datapoints[y])
-        elif min_index == 1:
-            group_one.append(datapoints[y])
-        else:
-            group_two.append(datapoints[y])
-
+        
+        groups[min_index].append(datapoints[y])
 
     # recalculate means
-    means[0] = numpy.mean(group_zero)
-    means[1] = numpy.mean(group_one)
-    means[2] = numpy.mean(group_two)
+    for i in range(num_means):
+        means[i] = numpy.mean(numpy.asarray(groups[i]), axis=0)
 
 
 # save means
