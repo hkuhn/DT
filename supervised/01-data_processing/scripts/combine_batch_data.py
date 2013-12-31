@@ -17,7 +17,7 @@ import numpy
 import os
 import sys
 import random
-
+import scipy.io
 
 batch_file_path = "../data/batch_files/"
 
@@ -28,7 +28,7 @@ my_list = []
 
 for i in range(0, len(file_list)):
     filename = file_list[i]
-    if filename == 'full_batch':
+    if filename == 'full_batch.mat':
         continue
     path = batch_file_path + filename
     array = pickle.load(open(path, 'rb'))
@@ -37,6 +37,12 @@ for i in range(0, len(file_list)):
 
 
 my_list = [ item for sublist in my_list for item in sublist ]
-pickle.dump(my_list, open('../data/batch_files/full_batch', 'wb')) 
+output_name = batch_file_path + 'full_batch' + '.mat'
 
+
+output_mat = numpy.asarray(my_list)
+print output_mat
+out = {}
+out['full_batch'] = output_mat
+scipy.io.savemat(output_name, out)
 
