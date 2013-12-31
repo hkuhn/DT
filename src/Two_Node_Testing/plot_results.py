@@ -40,7 +40,7 @@ line = []
 X = len(groupings) - 1
 
 points = []
-for i in range(2):
+for i in range(4):
     points.append([0] * X)
 
 #for i in range(0,X):
@@ -57,11 +57,35 @@ avg = [el / max_price for el in line ]
 print line
 
 
+
+slopes = []
+#slopes.append(0)
+slopes.append(groupings[1] / pow(10,27)  - groupings[0] / pow(10,27))
+for x in range(2, len(groupings)):
+    slopes.append(groupings[x] / pow(10,27) - groupings[x-1] / pow(10,27))
+
+seconder = []
+seconder.append(0)
+seconder.append(slopes[1] - slopes[0])
+for x in range(2, len(slopes)):
+    seconder.append(slopes[x] - slopes[x-1])
+
+
 for i in range(0,X):
-    if groupings[i] / pow(10,27)  > -1:
+    #if groupings[i] / pow(10,27)  > -1:
+    #if groupings[i] / pow(10,27) < 1:
+    if seconder[i] > 0.1:
         points[0][i] = dataset[i+1][(index+1)*60 - 15]
+    elif seconder[i] < -0.1:
+        points[2][i] = dataset[i+1][(index+1)*60 - 15]
     else:
-        points[1][i] = dataset[i+1][(index+1)*60 - 15]
+        #points[1][i] = dataset[i+1][(index+1)*60 - 15]
+        points[1][i] = 0
+
+
+#for i in range(0,X):
+#    
+#        points[3][i] = dataset[i+1][(index+1)*60 - 15]
 
 
 for i in range(len(points)):
@@ -71,10 +95,17 @@ for i in range(len(points)):
 print X
 #for i in range(len(points)):
 #    plt.scatter(range(0,X), points[i], color=color[i])
-print groupings[1]
-plt.scatter(range(0,X), groupings[:X] / pow(10,27), color="blue")
+plt.scatter(range(0,X), groupings[:X] / pow(10,27), color="cyan")
 
-plt.plot(range(0,X), line, color="green")
+
+print X
+print len(slopes)
+#plt.plot(range(0,X), slopes, color="magenta")
+print len(seconder)
+plt.plot(range(0,X), seconder, color="magenta")
+
+
+plt.plot(range(0,X), line, color="black")
 plt.plot(range(0,X), avg, color="red")
 plt.show()
 

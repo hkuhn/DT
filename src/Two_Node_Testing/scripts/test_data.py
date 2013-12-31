@@ -57,12 +57,15 @@ for cur_example in input_data:
 groupings = []
 for i in range(0, len(output)):
     example = output[i]
-    min_index = numpy.argmin(example)
-    groupings.append(numpy.diff(example))    
-    print "at instance: " + str(i)
     print example
-    print numpy.diff(example)
-
+    min_index = numpy.argmin(example)
+    #groupings.append(numpy.diff(example))    
+    #groupings.append(numpy.divide(example[0], example[1]))
+    groupings.append(numpy.sum(example))
+    print "at instance: " + str(i)
+    #print numpy.diff(example)
+    #print numpy.divide(example[0], example[1])
+    print numpy.sum(example)
 
 print "Saving groupings to file..."
 groupings = numpy.asarray(groupings)
