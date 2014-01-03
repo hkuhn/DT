@@ -17,7 +17,7 @@ import pickle
 import numpy
 import csv
 import math
-
+import scipy.io
 
 
 # test length of input arguments
@@ -156,7 +156,7 @@ sp_open_list = [sp_open_list[i:i+60] for i in range(0, len(sp_open_list), interv
 
 # ORDER OF NODES
 # Open, High, Low, Close, Volume, S&P....]
-for i in range(0,num_examples):
+for i in range(0,len(sp_close_list)):
     if len(open_list[i]) != 60 or len(sp_open_list[i]) != 60:
         print "excluding: " + str(i)
         print "length of open list: " + str(len(open_list[i]))
@@ -168,10 +168,17 @@ for i in range(0,num_examples):
     examples.append(example_list)
 
 output_name = '../data/batch_files/' + os.path.splitext(filename)[0] + '_batch'
-print "Exporting pickle dump to" + output_name
+#print "Exporting pickle dump to" + output_name
 
 # EXPORTED AS LIST OF LISTS
-pickle.dump(examples, open(output_name, 'wb'))
+#pickle.dump(examples, open(output_name, 'wb'))
+
+
+print "Exporting matrices to " + output_name + ".mat"
+out = {}
+out['batch_data'] = examples
+scipy.io.savemat(output_name + ".mat" , out)
+
 
 
 

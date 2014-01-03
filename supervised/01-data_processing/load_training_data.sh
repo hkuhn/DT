@@ -19,6 +19,7 @@ BATCH_DATA_DIR="${DATA_DIR}/batch_files"
 SCRIPT_DIR="scripts"
 
 
+INTERVAL="${1}"
 
 
 # test if training data has been downloaded
@@ -50,10 +51,10 @@ if [ -d "${BATCH_DATA_DIR}" ]; then
 	        echo "Generating batch files..."
         	for f in ${TRAINING_DATA_DIR}/*
         	do
-			python "${SCRIPT_DIR}/parse_data.py" $(basename "${f}") 60
+			python "${SCRIPT_DIR}/parse_data.py" $(basename "${f}") "${INTERVAL}"
         	done
-		echo "Merging batch files..."
-		python "${SCRIPT_DIR}/combine_batch_data.py"
+		#echo "Merging batch files..."
+		#python "${SCRIPT_DIR}/combine_batch_data.py"
 	else
 		echo "Continuing with data in the folder..."
 	fi
@@ -62,10 +63,10 @@ else
 	echo "Generating batch files..."
 	for f in ${TRAINING_DATA_DIR}/*
 	do
-		python "${SCRIPT_DIR}/parse_data.py" $(basename "${f}") 60
+		python "${SCRIPT_DIR}/parse_data.py" $(basename "${f}") "${INTERVAL}"
 	done
-        echo "Merging batch files..."
-	python "${SCRIPT_DIR}/combine_batch_data.py"
+        #echo "Merging batch files..."
+	#python "${SCRIPT_DIR}/combine_batch_data.py"
 
 fi
 

@@ -36,12 +36,12 @@ for i in range(0, len(file_list)):
     my_list.append(array)
 
 
-my_list = [ item for sublist in my_list for item in sublist ]
+#my_list = [ item for sublist in my_list for item in sublist ]
 output_name = batch_file_path + 'full_batch' + '.mat'
 
 
 output_mat = numpy.asarray(my_list)
-print output_mat
+#print output_mat
 out = {}
 out['full_batch'] = output_mat
 scipy.io.savemat(output_name, out)
